@@ -1,0 +1,95 @@
+POST http://localhost:2000/register/
+Content-Type: application/json
+
+{
+  "user_id":8,
+  "name":"indu",
+  "username":"indu9999",
+  "password":"888888",
+  "role":"student",
+  "course_id":2
+}
+
+
+####
+POST http://localhost:2000/login/
+Content-Type: application/json
+
+{
+  "username":"mounika9999",
+  "password":"222222"
+}
+
+####visitor####
+//(api-1)
+GET http://localhost:2000/home/courses/1/
+
+####
+//(api-2)
+GET http://localhost:2000/home/courses/
+
+
+####User####
+//(api-3)
+GET http://localhost:2000/dashboard/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+
+####
+//(api-4)
+GET http://localhost:2000/dashboard/2/subjects/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+
+####
+//(api-5)
+GET http://localhost:2000/dashboard/2/subjects/3/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+
+####
+//(api-6)
+GET http://localhost:2000/dashboard/2/subjects/3/6/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZIS6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+
+####
+//(api-7)
+GET http://localhost:2000/download_certificate
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+
+
+####TUTOR####
+//(api-8)
+GET http://localhost:2000/learning_status/1/?status=IN%20PROGRESS
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+
+
+####
+//(api-9)
+POST http://localhost:2000/materials/add-material/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+
+{
+    "material_id":11,
+    "subject_id":3,
+    "topic":"javascript-practice-questions",
+    "material_content":"JavascriptPracticeQuestions.pdf"
+}
+
+
+####
+//(api-10)
+POST http://localhost:2000/materials/add-session/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+
+{
+    "subject_id":5,
+    "course_id":2,
+    "video":"More-NodeJs-Concepts-video-link",
+    "subject_name":"NodeJs"
+}
+
+####
+//(api-11)
+GET http://localhost:2000/courses/2/students/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+
