@@ -33,7 +33,7 @@
 | video        | TEXT    |
 | subject_name | TEXT    |
 
-**materials_details**
+**materials**
 
 | Column      | Type    |
 | ----------- | ------- |
@@ -86,7 +86,7 @@
 **Tutor**
 
 8. get students w.r.t status
-   (path="/learning_status/:courseId/")
+   (path="/learning_status/:courseId/?status=--) ex=("COMPLETED","IN PROGRESS")->replace space with %20
 
 9. Tutor to post material
    (path=/materials/add-material/)
@@ -96,3 +96,6 @@
 
 11. Total students for a course
     (path="/courses/:courseId/students/")
+
+12. Delete a material
+    (path="/delete-material/:material_id/")

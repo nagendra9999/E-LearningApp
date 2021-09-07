@@ -16,13 +16,13 @@ POST http://localhost:2000/login/
 Content-Type: application/json
 
 {
-  "username":"mounika9999",
-  "password":"222222"
+  "username":"ravali9999",
+  "password":"111111"
 }
 
 ####visitor####
 //(api-1)
-GET http://localhost:2000/home/courses/1/
+GET http://localhost:2000/home/courses/2/
 
 ####
 //(api-2)
@@ -47,7 +47,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJva
 ####
 //(api-6)
 GET http://localhost:2000/dashboard/2/subjects/3/6/
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZIS6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvaGl0OTk5OSIsImlhdCI6MTYzMDc3NzUyMH0.K0c4auvDfKIGRyfBvQv9TjkQr1vu33XBAyODoANfP1U
 
 ####
 //(api-7)
@@ -57,15 +57,15 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJva
 
 ####TUTOR####
 //(api-8)
-GET http://localhost:2000/learning_status/1/?status=IN%20PROGRESS
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+GET http://localhost:2000/learning_status/2/?status=IN%20PROGRESS
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmFsaTk5OTkiLCJyb2xlIjoidHV0b3IiLCJpYXQiOjE2MzEwMDk3MTN9.jLg3vLC6q-1YRVI5vwJeD70r5NCjs4L1s7GlcxuGsEk
 
 
 ####
 //(api-9)
 POST http://localhost:2000/materials/add-material/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmFsaTk5OTkiLCJyb2xlIjoidHV0b3IiLCJpYXQiOjE2MzEwMDk3MTN9.jLg3vLC6q-1YRVI5vwJeD70r5NCjs4L1s7GlcxuGsEk
 
 {
     "material_id":11,
@@ -79,17 +79,22 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vd
 //(api-10)
 POST http://localhost:2000/materials/add-session/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmFsaTk5OTkiLCJyb2xlIjoidHV0b3IiLCJpYXQiOjE2MzEwMDk3MTN9.jLg3vLC6q-1YRVI5vwJeD70r5NCjs4L1s7GlcxuGsEk
 
 {
     "subject_id":5,
     "course_id":2,
     "video":"More-NodeJs-Concepts-video-link",
-    "subject_name":"NodeJs"
+    "subject_name":"Advansed-NodeJs"
 }
 
 ####
 //(api-11)
 GET http://localhost:2000/courses/2/students/
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vdW5pa2E5OTk5IiwiaWF0IjoxNjMwODM1Njc5fQ.m_iOwbC1RTCJtoccILGzDi5IncQ8fuztpp60lAl2VSo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmFsaTk5OTkiLCJyb2xlIjoidHV0b3IiLCJpYXQiOjE2MzEwMDk3MTN9.jLg3vLC6q-1YRVI5vwJeD70r5NCjs4L1s7GlcxuGsEk
+
+####
+//(api-12)
+DELETE http://localhost:2000/delete-material/11/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhdmFsaTk5OTkiLCJyb2xlIjoidHV0b3IiLCJpYXQiOjE2MzEwMDk3MTN9.jLg3vLC6q-1YRVI5vwJeD70r5NCjs4L1s7GlcxuGsEk
 

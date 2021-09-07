@@ -48,9 +48,21 @@ const authenticateToken = (request, response, next) => {
         response.send("Invalid JWT Token");
       } else {
         request.username = payload.username;
+        request.role = payload.role;
         next();
       }
     });
+  }
+};
+
+//authenticate User-Role
+const authenticateRole = (request, response, next) => {
+  const { username, role } = request;
+  if (role === "tutor") {
+    next();
+  } else {
+    response.status(401);
+    response.send("Only tutors can access");
   }
 };
 
@@ -102,7 +114,8 @@ app.post("/login/", async (request, response) => {
       response.status(400);
       response.send("Invalid password");
     } else {
-      const payload = { username: username };
+      const role = dbUser.role;
+      const payload = { username: username, role: role };
       const jwtToken = jwt.sign(payload, "MY_SECRET_KEY");
       response.send({ jwtToken });
     }
@@ -198,8 +211,6 @@ app.get(
     const Id = parseInt(courseId);
     const user = await getUser(username);
     const { course_id } = user;
-    console.log(Id);
-    console.log(course_id);
     if (Id == course_id) {
       const courseSubjectsQuery = `
     SELECT 
@@ -228,8 +239,6 @@ app.get(
     const Id = parseInt(courseId);
     const user = await getUser(username);
     const { course_id } = user;
-    console.log(Id);
-    console.log(course_id);
     if (Id === course_id) {
       const subjectQuery = `
     SELECT 
@@ -258,8 +267,6 @@ app.get(
     const Id = parseInt(courseId);
     const user = await getUser(username);
     const { course_id } = user;
-    console.log(Id);
-    console.log(course_id);
     if (Id === course_id) {
       const subjectQuery = `
     SELECT 
@@ -321,13 +328,14 @@ app.get(
 app.get(
   "/learning_status/:courseId/",
   authenticateToken,
+  authenticateRole,
   async (request, response) => {
     const { username } = request;
     const user = await getUser(username);
-    const { course_id, name, role } = user;
+    const { course_id, name } = user;
     const { courseId } = request.params;
     const { status } = request.query;
-    if (role === "tutor" && course_id == courseId) {
+    if (course_id == courseId) {
       if (status !== undefined && statusList.includes(`${status}`)) {
         getStudentsQuery = `
             SELECT
@@ -354,19 +362,16 @@ app.get(
 app.post(
   "/materials/add-material/",
   authenticateToken,
+  authenticateRole,
   async (request, response) => {
     const { material_id, subject_id, topic, material } = request.body;
     const materialCheckQuery = `SELECT * FROM materials WHERE material_id=${material_id};`;
     const materialCheck = await database.get(materialCheckQuery);
-    const { username } = request;
-    const user = await getUser(username);
-    const { role } = user;
-    if (role === "tutor") {
-      if (materialCheck !== undefined) {
-        response.status(400);
-        response.send("material already exits");
-      } else {
-        const postMaterialQuery = `
+    if (materialCheck !== undefined) {
+      response.status(400);
+      response.send("material already exits");
+    } else {
+      const postMaterialQuery = `
             INSERT INTO
               materials (material_id,subject_id,topic,material) 
               VALUES (
@@ -377,13 +382,9 @@ app.post(
               );
             `;
 
-        await database.run(postMaterialQuery);
-        response.status(200);
-        response.send("material added successfully");
-      }
-    } else {
-      response.status(400);
-      response.send("You cannot add material only tutor can add.");
+      await database.run(postMaterialQuery);
+      response.status(200);
+      response.send("material added successfully");
     }
   }
 );
@@ -393,19 +394,16 @@ app.post(
 app.post(
   "/materials/add-session/",
   authenticateToken,
+  authenticateRole,
   async (request, response) => {
     const { subject_id, course_id, video, subject_name } = request.body;
     const sessionCheckQuery = `SELECT * FROM course_session_details WHERE subject_id=${subject_id};`;
     const sessionCheck = await database.get(sessionCheckQuery);
-    const { username } = request;
-    const user = await getUser(username);
-    const { role } = user;
-    if (role === "tutor") {
-      if (sessionCheck !== undefined) {
-        response.status(400);
-        response.send("session already exits");
-      } else {
-        const postSessionQuery = `
+    if (sessionCheck !== undefined) {
+      response.status(400);
+      response.send("session already exits");
+    } else {
+      const postSessionQuery = `
             INSERT INTO
               course_session_details (subject_id, course_id, video, subject_name) 
               VALUES (
@@ -416,24 +414,19 @@ app.post(
               );
             `;
 
-        await database.run(postSessionQuery);
-        response.status(200);
-        response.send("session added successfully");
-      }
-    } else {
-      response.status(400);
-      response.send("You cannot add session only tutor can add.");
+      await database.run(postSessionQuery);
+      response.status(200);
+      response.send("session added successfully");
     }
   }
 );
-
-//**MUTUAL**//
 
 //API-11(Total students for a course)
 
 app.get(
   "/courses/:courseId/students/",
   authenticateToken,
+  authenticateRole,
   async (request, response) => {
     const { courseId } = request.params;
     const totalStudentsQuery = `
@@ -446,6 +439,37 @@ app.get(
     `;
     const students = await database.all(totalStudentsQuery);
     response.send(students);
+  }
+);
+
+//API-12(delete Material)
+app.put(
+  "/delete-material/:material_id/",
+  authenticateToken,
+  authenticateRole,
+  async (request, response) => {
+    const { material_id } = request.params;
+    const getMaterialQuery = `
+    SELECT
+        *
+    FROM
+        materials
+    WHERE
+        material_id = '${material_id}';
+    `;
+    const materialCheck = await database.get(getMaterialQuery);
+    if (materialCheck !== undefined) {
+      const deleteMaterialQuery = `
+    DELETE FROM
+    materials
+    WHERE material_id=${material_id};`;
+      await database.run(deleteMaterialQuery);
+      response.status(200);
+      response.send("Material deleted");
+    } else {
+      response.status(400);
+      response.send("Material doesn't exist");
+    }
   }
 );
 
