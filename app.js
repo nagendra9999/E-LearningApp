@@ -443,7 +443,7 @@ app.get(
 );
 
 //API-12(delete Material)
-app.put(
+app.delete(
   "/delete-material/:material_id/",
   authenticateToken,
   authenticateRole,
